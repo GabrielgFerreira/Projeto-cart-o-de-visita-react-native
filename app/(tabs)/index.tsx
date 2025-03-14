@@ -1,7 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, Button, Alert } from 'react-native';
 
 export default function ProfileScreen() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    console.log("Componente montou");
+    return () => {
+      console.log("Componente desmontou");
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log("Count mudou:", count);
+  }, [count]);
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
      
@@ -27,6 +40,11 @@ export default function ProfileScreen() {
         title="Toque para uma motivação"
         onPress={() => Alert.alert('Frase Motivacional', 'O sucesso é a soma de pequenos esforços repetidos diariamente!')}
       />
+
+      <Text onPress={() => setCount(count + 1)} style={styles.countText}>
+        Clique aqui! Valor: {count}
+      </Text>
+
     </ScrollView>
   );
 }
@@ -71,5 +89,10 @@ const styles = StyleSheet.create({
   item: {
     fontSize: 16,
     marginBottom: 5,
+  },
+  countText: {
+    fontSize: 18,
+    color: '#007bff',
+    marginTop: 20,
   },
 });
